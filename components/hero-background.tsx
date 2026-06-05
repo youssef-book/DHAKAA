@@ -7,8 +7,6 @@ import { getHeroGrid } from "@/lib/hero-grid";
 /** When hero copy stagger should begin (seconds). */
 export const HERO_REVEAL_CONTENT_DELAY_S = 0.55;
 
-const GRID_INK = "rgba(120, 168, 240, 0.18)";
-
 function DashedGridLine({
   x1,
   y1,
@@ -26,9 +24,9 @@ function DashedGridLine({
       y1={y1}
       x2={x2}
       y2={y2}
-      stroke={GRID_INK}
-      strokeWidth={0.75}
-      strokeDasharray="5 12"
+      stroke="url(#hero-grid-stroke)"
+      strokeWidth={1}
+      strokeDasharray="6 10"
       strokeLinecap="butt"
     />
   );
@@ -91,9 +89,22 @@ export function HeroBackground() {
           aria-hidden
         >
           <defs>
+            <radialGradient
+              id="hero-grid-stroke"
+              gradientUnits="userSpaceOnUse"
+              cx={size.width / 2}
+              cy={size.height * 0.45}
+              r={Math.hypot(size.width / 2, size.height / 2) * 0.82}
+            >
+              <stop offset="0%" stopColor="rgba(140, 190, 245, 0.3)" />
+              <stop offset="28%" stopColor="rgba(75, 115, 175, 0.54)" />
+              <stop offset="52%" stopColor="rgba(45, 72, 125, 0.68)" />
+              <stop offset="75%" stopColor="rgba(25, 42, 78, 0.78)" />
+              <stop offset="100%" stopColor="rgba(10, 18, 38, 0.88)" />
+            </radialGradient>
             <radialGradient id="hero-center-glow" cx="50%" cy="45%" r="58%">
-              <stop offset="0%" stopColor="rgba(80, 180, 255, 0.14)" />
-              <stop offset="45%" stopColor="rgba(50, 100, 180, 0.06)" />
+              <stop offset="0%" stopColor="rgba(38, 72, 130, 0.32)" />
+              <stop offset="45%" stopColor="rgba(28, 52, 95, 0.18)" />
               <stop offset="100%" stopColor="rgba(7, 13, 24, 0)" />
             </radialGradient>
           </defs>
