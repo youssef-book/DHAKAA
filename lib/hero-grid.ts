@@ -36,13 +36,29 @@ export function buildWeightedPositions(
   return lines;
 }
 
-export function getHeroGrid(width: number, height: number): HeroGrid {
+export type HeroGridOptions = {
+  columnCount?: number;
+  rowCount?: number;
+  columnWeights?: number[];
+};
+
+export function getHeroGrid(
+  width: number,
+  height: number,
+  options: HeroGridOptions = {},
+): HeroGrid {
+  const columnCount = options.columnCount ?? HERO_COLUMN_COUNT;
+  const rowCount = options.rowCount ?? HERO_ROW_COUNT;
+  const columnWeights =
+    options.columnWeights ??
+    (columnCount === HERO_COLUMN_COUNT ? HERO_COLUMN_WEIGHTS : undefined);
+
   const verticalLines = buildWeightedPositions(
     width,
-    HERO_COLUMN_COUNT,
-    HERO_COLUMN_WEIGHTS,
+    columnCount,
+    columnWeights,
   );
-  const horizontalLines = buildWeightedPositions(height, HERO_ROW_COUNT);
+  const horizontalLines = buildWeightedPositions(height, rowCount);
 
   const left = verticalLines[2] ?? 0;
   const right = verticalLines[verticalLines.length - 3] ?? width;

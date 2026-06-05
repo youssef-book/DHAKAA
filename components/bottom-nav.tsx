@@ -1,8 +1,10 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const links = [
   { label: "Solutions", href: "/solutions" },
@@ -10,19 +12,52 @@ const links = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
+const navTransition = {
+  duration: 0.48,
+  ease: [0.23, 1, 0.32, 1] as const,
+};
+
+const centeredPosition = { left: "50%", x: "-50%" };
+
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname.startsWith(href);
 }
 
+function useIsLg() {
+  const [isLg, setIsLg] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsLg(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return isLg;
+}
+
 export function BottomNav() {
   const pathname = usePathname();
   const homeActive = pathname === "/";
+  const isAboutPage = pathname === "/about";
+  const reduceMotion = useReducedMotion();
+  const isLg = useIsLg();
+
+  const aboutPosition = {
+    left: isLg ? "2rem" : "1.5rem",
+    x: 0,
+  };
 
   return (
-    <nav
+    <motion.nav
       aria-label="Main navigation"
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-3.5"
+      className="pointer-events-none fixed bottom-3.5 z-50 w-max"
+      initial={centeredPosition}
+      animate={isAboutPage ? aboutPosition : centeredPosition}
+      transition={reduceMotion ? { duration: 0 } : navTransition}
     >
       <div className="glass-dark pointer-events-auto flex items-center gap-1 rounded-full p-1.5">
         <Link
@@ -64,6 +99,6 @@ export function BottomNav() {
           );
         })}
       </div>
-    </nav>
+    </motion.nav>
   );
 }

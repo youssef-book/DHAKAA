@@ -1,33 +1,52 @@
-import { Process } from "@/components/process";
+import { AboutBentoCard } from "@/components/about-bento-cell";
+import { AboutBentoGrid } from "@/components/about-bento-grid";
+import { AboutIntro } from "@/components/about-intro";
+import { AboutLogoCell } from "@/components/about-logo-cell";
+
+const bentoCards = [
+  {
+    label: "Vision",
+    title: "Software that feels native to the business.",
+    body: "We study how teams actually operate, then design tools around those real workflows.",
+    className:
+      "bg-dhakaa-950 text-dhakaa-0 hover:bg-dhakaa-900 sm:col-span-2 lg:col-span-1 lg:row-span-2",
+    labelClassName: "text-dhakaa-500 group-hover:text-dhakaa-400",
+    bodyClassName: "text-dhakaa-400",
+  },
+  {
+    label: "Statement",
+    title: "Premium custom builds, not forced templates.",
+    body: "Every interface, system, and integration is shaped for established companies with serious operations.",
+    className: "bg-dhakaa-900 text-dhakaa-0 hover:bg-dhakaa-800",
+    labelClassName: "text-dhakaa-500 group-hover:text-dhakaa-400",
+    bodyClassName: "text-dhakaa-400",
+  },
+  {
+    label: "Location",
+    title: "Remote-first, built close to your team.",
+    body: "DHAKAA partners across locations and works inside your cadence from discovery to long-term evolution.",
+    className: "bg-dhakaa-100 text-dhakaa-950 hover:bg-dhakaa-50",
+    labelClassName: "text-dhakaa-400 group-hover:text-dhakaa-500",
+    bodyClassName: "text-dhakaa-500",
+  },
+];
 
 export function About() {
   return (
-    <>
-      <section className="px-6 pb-20 pt-28">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-dhakaa-400">
-            About us
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-dhakaa-950 sm:text-4xl">
-            We build software for companies that know their business — not
-            startups chasing trends
-          </h1>
-          <div className="mt-8 space-y-4 text-base leading-relaxed text-dhakaa-500">
-            <p>
-              DHAKAA is a development agency focused on one thing: custom
-              premium software for established companies. The kind of
-              organizations that have been running for decades, with workflows
-              built over years of real operations.
-            </p>
-            <p>
-              We don&apos;t sell templates or force-fit SaaS products. We embed
-              with your team, understand how things actually work, and build
-              software that fits — then evolve it as your business grows.
-            </p>
-          </div>
+    <section className="bg-dhakaa-50 text-dhakaa-950 lg:min-h-screen">
+      <div className="grid lg:grid-cols-[minmax(0,38%)_1fr] lg:items-stretch">
+        <div className="relative lg:min-h-screen">
+          <AboutIntro />
         </div>
-      </section>
-      <Process />
-    </>
+
+        <AboutBentoGrid>
+          <AboutLogoCell />
+
+          {bentoCards.map((card) => (
+            <AboutBentoCard key={card.label} {...card} />
+          ))}
+        </AboutBentoGrid>
+      </div>
+    </section>
   );
 }
