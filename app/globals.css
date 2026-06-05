@@ -1,26 +1,391 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─── DHAKAA Brand Tokens ─────────────────────────────────────────── */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Monochrome scale */
+  --dhakaa-0: #ffffff;
+  --dhakaa-50: #fafafa;
+  --dhakaa-100: #f4f4f5;
+  --dhakaa-200: #e4e4e7;
+  --dhakaa-300: #d4d4d8;
+  --dhakaa-400: #a1a1aa;
+  --dhakaa-500: #71717a;
+  --dhakaa-600: #52525b;
+  --dhakaa-700: #3f3f46;
+  --dhakaa-800: #27272a;
+  --dhakaa-900: #18181b;
+  --dhakaa-950: #09090b;
+
+  /* Semantic */
+  --muted: oklch(0.97 0 0);
+  --border: oklch(0.922 0 0);
+
+  /* Glass surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.52);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.28);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-border-muted: rgba(0, 0, 0, 0.06);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  --glass-shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.08);
+  --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --glass-blur: 20px;
+
+  /* Dark glass */
+  --glass-dark-bg: rgba(4, 8, 20, 0.72);
+  --glass-dark-border: rgba(151, 184, 244, 0.12);
+  --glass-dark-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  --glass-dark-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* Radius */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-2xl: 48px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --color-dhakaa-0: var(--dhakaa-0);
+  --color-dhakaa-50: var(--dhakaa-50);
+  --color-dhakaa-100: var(--dhakaa-100);
+  --color-dhakaa-200: var(--dhakaa-200);
+  --color-dhakaa-300: var(--dhakaa-300);
+  --color-dhakaa-400: var(--dhakaa-400);
+  --color-dhakaa-500: var(--dhakaa-500);
+  --color-dhakaa-600: var(--dhakaa-600);
+  --color-dhakaa-700: var(--dhakaa-700);
+  --color-dhakaa-800: var(--dhakaa-800);
+  --color-dhakaa-900: var(--dhakaa-900);
+  --color-dhakaa-950: var(--dhakaa-950);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
+  --font-subtitle: var(--font-inter);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Base ────────────────────────────────────────────────────────── */
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--dhakaa-900);
+  color: var(--dhakaa-0);
+}
+
+/* ─── Glass utilities ───────────────────────────────────────────── */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border-muted);
+  box-shadow: var(--glass-shadow), var(--glass-inset);
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-lg), var(--glass-inset);
+}
+
+.glass-subtle {
+  background: var(--glass-bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-muted);
+}
+
+.glass-dark {
+  background: var(--glass-dark-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-dark-border);
+  box-shadow: var(--glass-dark-shadow), var(--glass-dark-inset);
+  color: var(--dhakaa-0);
+}
+
+/* ─── Hero grid ───────────────────────────────────────────────────── */
+
+.hero-blueprint-ambient {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(40, 120, 200, 0.16),
+      transparent 42%
+    ),
+    linear-gradient(180deg, rgba(7, 13, 24, 0) 0%, rgba(4, 8, 18, 0.65) 78%);
+}
+
+.hero-light-source {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+/* Primary light: a soft source anchored above the copy that gently
+   breathes so it reads as the light feeding the fading background. */
+.hero-light-primary {
+  inset: -30% -10% auto -10%;
+  height: 90%;
+  background: radial-gradient(
+    60% 55% at 50% 32%,
+    rgba(90, 175, 255, 0.2),
+    rgba(54, 110, 190, 0.08) 46%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  opacity: 0.7;
+  animation: hero-light-breathe 16s ease-in-out infinite;
+}
+
+/* Secondary light: a dimmer source that occasionally drifts across,
+   as if another light passes through the scene. */
+.hero-light-secondary {
+  top: -25%;
+  left: -40%;
+  width: 70%;
+  height: 130%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(120, 200, 255, 0.16),
+    rgba(70, 130, 210, 0.05) 45%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  animation: hero-light-pass 26s ease-in-out infinite;
+}
+
+@keyframes hero-light-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate3d(-2%, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate3d(2%, -2%, 0) scale(1.06);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes hero-light-pass {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  38% {
+    opacity: 0.5;
+  }
+  62% {
+    opacity: 0.5;
+  }
+  82%,
+  100% {
+    opacity: 0;
+    transform: translate3d(220%, 14%, 0);
+  }
+}
+
+.hero-cyber-grid line,
+.hero-cyber-grid polyline,
+.hero-cyber-grid rect,
+.hero-cyber-grid circle {
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-grid-scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(70, 150, 220, 0.012) 38%,
+    rgba(90, 190, 255, 0.045) 50%,
+    rgba(70, 150, 220, 0.012) 62%,
+    transparent 100%
+  );
+  background-size: 100% 280px;
+  animation: hero-grid-scan 14s linear infinite;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+}
+
+.hero-grid-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      transparent 0%,
+      rgba(6, 10, 22, 0.22) 42%,
+      rgba(4, 7, 16, 0.68) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(4, 7, 16, 0.62),
+      transparent 24%,
+      transparent 76%,
+      rgba(4, 7, 16, 0.62)
+    );
+}
+
+@keyframes hero-grid-scan {
+  from {
+    background-position: 0 -280px;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid-scanline {
+    animation: none;
+    opacity: 0.2;
+  }
+
+  .hero-light-primary {
+    animation: none;
+    opacity: 0.55;
+  }
+
+  .hero-light-secondary {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }
