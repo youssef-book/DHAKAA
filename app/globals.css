@@ -201,6 +201,16 @@ body {
     linear-gradient(180deg, rgba(7, 13, 24, 0) 0%, rgba(4, 8, 18, 0.42) 78%);
 }
 
+.hero-bg-glow-left .hero-blueprint-ambient {
+  background:
+    radial-gradient(
+      circle at 18% 48%,
+      rgba(32, 68, 125, 0.38),
+      transparent 52%
+    ),
+    linear-gradient(180deg, rgba(7, 13, 24, 0) 0%, rgba(4, 8, 18, 0.42) 78%);
+}
+
 .hero-light-source {
   position: absolute;
   pointer-events: none;
@@ -224,6 +234,16 @@ body {
   animation: hero-light-breathe 16s ease-in-out infinite;
 }
 
+.hero-bg-glow-left .hero-light-primary {
+  inset: -30% 35% auto -28%;
+  background: radial-gradient(
+    58% 55% at 22% 36%,
+    rgba(55, 105, 175, 0.34),
+    rgba(35, 70, 130, 0.14) 46%,
+    transparent 72%
+  );
+}
+
 /* Secondary light: a dimmer source that occasionally drifts across,
    as if another light passes through the scene. */
 .hero-light-secondary {
@@ -240,6 +260,18 @@ body {
   filter: blur(16px);
   opacity: 0;
   animation: hero-light-pass 26s ease-in-out infinite;
+}
+
+.hero-bg-glow-left .hero-light-secondary {
+  left: -55%;
+  width: 55%;
+  background: radial-gradient(
+    50% 50% at 40% 50%,
+    rgba(65, 115, 180, 0.22),
+    rgba(40, 75, 135, 0.1) 45%,
+    transparent 70%
+  );
+  animation: hero-light-pass-left 26s ease-in-out infinite;
 }
 
 @keyframes hero-light-breathe {
@@ -270,6 +302,25 @@ body {
   100% {
     opacity: 0;
     transform: translate3d(220%, 14%, 0);
+  }
+}
+
+@keyframes hero-light-pass-left {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  38% {
+    opacity: 0.48;
+  }
+  62% {
+    opacity: 0.48;
+  }
+  82%,
+  100% {
+    opacity: 0;
+    transform: translate3d(160%, 10%, 0);
   }
 }
 
@@ -339,6 +390,11 @@ body {
   }
 
   .hero-light-secondary {
+    animation: none;
+    opacity: 0;
+  }
+
+  .hero-bg-glow-left .hero-light-secondary {
     animation: none;
     opacity: 0;
   }

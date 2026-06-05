@@ -1,5 +1,4 @@
 import { About } from "@/components/about";
-import { Footer } from "@/components/footer";
 
 export const metadata = {
   title: "About — DHAKAA",
@@ -9,11 +8,8 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <>
-      <main>
-        <About />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <About />
+    </main>
   );
 }
