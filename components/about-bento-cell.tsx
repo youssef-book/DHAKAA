@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { type ReactNode } from "react";
-import { aboutGridOverlayReveal } from "@/lib/about-motion";
+import { aboutGridOverlayHide, aboutGridOverlayReveal } from "@/lib/about-motion";
 
 export const aboutCellClassName =
   "relative flex min-h-56 flex-col justify-between overflow-hidden transition-[background-color] duration-300 ease-[var(--ease-out)]";
@@ -35,12 +35,20 @@ type AboutBentoShellProps = {
   className?: string;
   backdrop?: ReactNode;
   children: ReactNode;
+  exiting?: boolean;
+  revealIndex?: number;
+  revealCount?: number;
+  revealOverlay?: boolean;
 };
 
 export function AboutBentoShell({
   className,
   backdrop,
   children,
+  exiting = false,
+  revealIndex = 0,
+  revealCount = 1,
+  revealOverlay = true,
 }: AboutBentoShellProps) {
   const reduceMotion = useReducedMotion();
 
@@ -57,13 +65,22 @@ export function AboutBentoShell({
         {children}
       </motion.div>
 
-      {!reduceMotion ? (
+      {revealOverlay && !reduceMotion ? (
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-dhakaa-0"
-          initial={{ height: "100%" }}
-          animate={{ height: 0 }}
-          transition={aboutGridOverlayReveal}
+          className="pointer-events-none absolute inset-0 z-20 bg-dhakaa-0"
+          initial={{ clipPath: "inset(0% 0 0 0)" }}
+          animate={{
+            clipPath: exiting ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
+          }}
+          transition={
+            exiting
+              ? {
+                  ...aboutGridOverlayHide,
+                  delay: (revealCount - 1 - revealIndex) * 0.08,
+                }
+              : aboutGridOverlayReveal
+          }
         />
       ) : null}
     </div>
@@ -77,6 +94,10 @@ type AboutBentoCardProps = {
   className: string;
   labelClassName: string;
   bodyClassName: string;
+  compact?: boolean;
+  exiting?: boolean;
+  revealIndex?: number;
+  revealCount?: number;
 };
 
 export function AboutBentoCard({
@@ -86,6 +107,10 @@ export function AboutBentoCard({
   className,
   labelClassName,
   bodyClassName,
+  compact = false,
+  exiting = false,
+  revealIndex = 0,
+  revealCount = 1,
 }: AboutBentoCardProps) {
   const reduceMotion = useReducedMotion();
   const motionVariants = reduceMotion ? undefined : labelVariants;
@@ -93,18 +118,30 @@ export function AboutBentoCard({
   const motionBodyVariants = reduceMotion ? undefined : bodyVariants;
 
   return (
-    <AboutBentoShell className={className}>
+    <AboutBentoShell
+      className={className}
+      exiting={exiting}
+      revealIndex={revealIndex}
+      revealCount={revealCount}
+    >
       <motion.p
         variants={motionVariants}
         className={`text-xs font-medium uppercase tracking-[0.2em] ${labelClassName}`}
       >
         {label}
       </motion.p>
-      <motion.div variants={motionContentVariants} className="mt-12">
-        <h2 className="text-2xl font-semibold tracking-[-0.03em]">{title}</h2>
+      <motion.div
+        variants={motionContentVariants}
+        className={compact ? "mt-6" : "mt-12"}
+      >
+        <h2
+          className={`font-semibold tracking-[-0.03em] ${compact ? "text-xl" : "text-2xl"}`}
+        >
+          {title}
+        </h2>
         <motion.p
           variants={motionBodyVariants}
-          className={`mt-4 text-sm leading-relaxed ${bodyClassName}`}
+          className={`${compact ? "mt-2" : "mt-4"} text-sm leading-relaxed ${bodyClassName}`}
         >
           {body}
         </motion.p>

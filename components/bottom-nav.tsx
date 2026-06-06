@@ -17,7 +17,7 @@ const navTransition = {
   ease: [0.23, 1, 0.32, 1] as const,
 };
 
-const centeredPosition = { left: "50%", x: "-50%" };
+const centeredPosition = { left: "50%", right: "auto", x: "-50%" };
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -41,33 +41,46 @@ function useIsLg() {
 
 export function BottomNav() {
   const pathname = usePathname();
+  const isLightNavPage = pathname === "/";
   const homeActive = pathname === "/";
-  const isAboutPage = pathname === "/about";
+  const isLeftNavPage = pathname === "/about" || pathname === "/contact";
   const reduceMotion = useReducedMotion();
   const isLg = useIsLg();
 
-  const aboutPosition = {
+  const shellClass = isLightNavPage ? "glass-nav-light" : "glass-dark";
+  const dividerClass = isLightNavPage ? "bg-dhakaa-950/14" : "bg-white/10";
+  const activeItemClass = isLightNavPage
+    ? "bg-dhakaa-950 text-dhakaa-0 shadow-[0_14px_36px_rgba(9,9,11,0.18)]"
+    : "bg-dhakaa-0 text-dhakaa-950";
+  const inactiveItemClass = isLightNavPage
+    ? "text-dhakaa-800 hover:bg-dhakaa-950/6 hover:text-dhakaa-950"
+    : "text-dhakaa-300 hover:bg-white/8 hover:text-dhakaa-50";
+
+  const leftNavPosition = {
     left: isLg ? "2rem" : "1.5rem",
+    right: "auto",
     x: 0,
   };
+
+  const navPosition = isLeftNavPage ? leftNavPosition : centeredPosition;
 
   return (
     <motion.nav
       aria-label="Main navigation"
       className="pointer-events-none fixed bottom-3.5 z-50 w-max"
       initial={centeredPosition}
-      animate={isAboutPage ? aboutPosition : centeredPosition}
+      animate={navPosition}
       transition={reduceMotion ? { duration: 0 } : navTransition}
     >
-      <div className="glass-dark pointer-events-auto flex items-center gap-1 rounded-full p-1.5">
+      <div
+        className={`${shellClass} pointer-events-auto flex items-center gap-1 rounded-full p-1.5`}
+      >
         <Link
           href="/"
           aria-label="Home"
           aria-current={homeActive ? "page" : undefined}
           className={`flex items-center justify-center rounded-full p-2.5 transition-[background,color,transform] duration-150 ease-out active:scale-[0.97] ${
-            homeActive
-              ? "bg-dhakaa-0 text-dhakaa-950"
-              : "text-dhakaa-300 hover:bg-white/8 hover:text-dhakaa-50"
+            homeActive ? activeItemClass : inactiveItemClass
           }`}
         >
           <Image
@@ -75,11 +88,19 @@ export function BottomNav() {
             alt=""
             width={22}
             height={22}
-            className={`h-[22px] w-[22px] ${homeActive ? "" : "invert opacity-70"}`}
+            className={`h-[22px] w-[22px] ${
+              homeActive
+                ? isLightNavPage
+                  ? "brightness-0 invert"
+                  : ""
+                : isLightNavPage
+                  ? "opacity-80"
+                  : "invert opacity-70"
+            }`}
           />
         </Link>
 
-        <div className="mx-1 h-5 w-px bg-white/10" aria-hidden />
+        <div className={`mx-1 h-5 w-px ${dividerClass}`} aria-hidden />
 
         {links.map((link) => {
           const active = isActive(pathname, link.href);
@@ -89,9 +110,7 @@ export function BottomNav() {
               href={link.href}
               aria-current={active ? "page" : undefined}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-[background,color,transform] duration-150 ease-out active:scale-[0.97] ${
-                active
-                  ? "bg-dhakaa-0 text-dhakaa-950"
-                  : "text-dhakaa-300 hover:bg-white/8 hover:text-dhakaa-50"
+                active ? activeItemClass : inactiveItemClass
               }`}
             >
               {link.label}

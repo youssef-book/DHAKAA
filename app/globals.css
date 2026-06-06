@@ -171,6 +171,17 @@ body {
   box-shadow: var(--glass-shadow-lg), var(--glass-inset);
 }
 
+.glass-nav-light {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(9, 9, 11, 0.14);
+  box-shadow:
+    0 18px 48px rgba(9, 9, 11, 0.14),
+    0 4px 14px rgba(9, 9, 11, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
 .glass-subtle {
   background: var(--glass-bg-subtle);
   backdrop-filter: blur(12px);
@@ -327,8 +338,50 @@ body {
 .hero-cyber-grid line,
 .hero-cyber-grid polyline,
 .hero-cyber-grid rect,
-.hero-cyber-grid circle {
+.hero-cyber-grid circle,
+.light-hero-cyber-grid line,
+.light-hero-cyber-grid polyline,
+.light-hero-cyber-grid rect,
+.light-hero-cyber-grid circle {
   vector-effect: non-scaling-stroke;
+}
+
+.light-hero-grid-vignette {
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 44%,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(255, 255, 255, 0.72) 34%,
+      rgba(255, 255, 255, 0.2) 62%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      transparent 22%,
+      transparent 78%,
+      rgba(255, 255, 255, 0.35) 100%
+    );
+}
+
+.dark-hero-grid-vignette {
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 44%,
+      rgba(9, 9, 11, 0.72) 0%,
+      rgba(9, 9, 11, 0.42) 34%,
+      rgba(9, 9, 11, 0.12) 62%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(9, 9, 11, 0.45) 0%,
+      transparent 22%,
+      transparent 78%,
+      rgba(9, 9, 11, 0.3) 100%
+    );
 }
 
 .hero-grid-scanline {
