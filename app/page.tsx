@@ -1,10 +1,10 @@
 import { Footer } from "@/components/footer";
-import { Hero } from "@/components/hero";
+import { LightHero2 } from "@/components/light-hero-2";
 
 export default function Home() {
   return (
     <main>
-      <Hero />
+      <LightHero2 />
       <Footer />
     </main>
   );

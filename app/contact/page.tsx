@@ -1,18 +1,14 @@
-import { ContactPage } from "@/components/contact-page";
-import { Footer } from "@/components/footer";
+import { Contact } from "@/components/contact";
 
 export const metadata = {
   title: "Contact — DHAKAA",
   description: "Get in touch with DHAKAA to start your project.",
 };
 
-export default function ContactRoute() {
+export default function ContactPage() {
   return (
-    <>
-      <main>
-        <ContactPage />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <Contact />
+    </main>
   );
 }
