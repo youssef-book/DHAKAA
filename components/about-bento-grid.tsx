@@ -13,7 +13,7 @@ export function AboutBentoGrid({
 }: AboutBentoGridProps) {
   return (
     <div
-      className={`grid auto-rows-[minmax(220px,auto)] grid-cols-1 sm:grid-cols-2 ${
+      className={`grid h-full auto-rows-[minmax(220px,auto)] grid-cols-1 sm:grid-cols-2 ${
         desktopMinHeight ? "lg:min-h-screen" : ""
       } ${className ?? ""}`}
     >
