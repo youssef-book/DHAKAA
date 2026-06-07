@@ -5,6 +5,7 @@ export function AboutLogoCell() {
   return (
     <AboutBentoShell
       className="sm:col-span-2"
+      direction="top"
       backdrop={
         <div
           className="about-bento-glass__lamp pointer-events-none absolute inset-0 z-[4]"

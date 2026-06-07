@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
-import { AboutBentoShell } from "@/components/about-bento-cell";
+import { ContactBentoShell } from "@/components/contact-bento-shell";
 
 const EMAIL = "hello@dhakaa.com";
 const easeOut = [0.23, 1, 0.32, 1] as const;
@@ -42,10 +42,7 @@ export function ContactResponseCell() {
   };
 
   return (
-      <AboutBentoShell
-      className="h-full min-h-0 bg-dhakaa-0 text-dhakaa-950 hover:bg-dhakaa-50 [&>div]:p-5 lg:[&>div]:pb-8"
-      revealOverlay={false}
-    >
+    <ContactBentoShell className="h-full min-h-0 bg-dhakaa-0 text-dhakaa-950 hover:bg-dhakaa-50 [&>div]:p-5 lg:[&>div]:pb-8">
       <motion.p
         variants={reduceMotion ? undefined : labelVariants}
         className="text-xs font-medium uppercase tracking-[0.2em] text-dhakaa-400 transition-colors duration-300 ease-[var(--ease-out)] group-hover:text-blue-700"
@@ -110,6 +107,6 @@ export function ContactResponseCell() {
           )}
         </button>
       </motion.div>
-    </AboutBentoShell>
+    </ContactBentoShell>
   );
 }

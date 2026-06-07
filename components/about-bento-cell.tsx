@@ -53,6 +53,14 @@ type AboutBentoShellProps = {
   revealIndex?: number;
   revealCount?: number;
   revealOverlay?: boolean;
+  direction?: "top" | "bottom" | "left" | "right";
+};
+
+const directionOffsets = {
+  top: { y: -150, x: 0 },
+  bottom: { y: 150, x: 0 },
+  left: { x: -150, y: 0 },
+  right: { x: 150, y: 0 },
 };
 
 export function AboutBentoShell({
@@ -64,36 +72,38 @@ export function AboutBentoShell({
   revealIndex = 0,
   revealCount = 1,
   revealOverlay = true,
+  direction = "bottom",
 }: AboutBentoShellProps) {
   const reduceMotion = useReducedMotion();
 
   const shouldReveal = revealOverlay && !reduceMotion;
+  const offset = directionOffsets[direction];
 
   return (
-    <div className={`${aboutCellClipClassName} ${className ?? ""}`}>
-      <motion.div
-        className={`${aboutCellClassName} ${glassVariantClass[glassVariant]}`}
-        initial={shouldReveal ? { opacity: 0, scale: 0.9 } : false}
-        animate={
-          shouldReveal
-            ? exiting
-              ? { opacity: 0, scale: 0.9 }
-              : { opacity: 1, scale: 1 }
-            : undefined
-        }
-        whileHover={reduceMotion || exiting ? undefined : shellHover}
-        style={{ transformOrigin: "center center" }}
-        transition={
-          shouldReveal
-            ? exiting
-              ? {
-                  ...aboutGridBubbleHide,
-                  delay: (revealCount - 1 - revealIndex) * 0.08,
-                }
-              : aboutGridBubbleReveal
-            : undefined
-        }
-      >
+    <motion.div
+      className={`${aboutCellClipClassName} ${className ?? ""}`}
+      initial={shouldReveal ? { opacity: 0, x: offset.x, y: offset.y, scale: 0.95, filter: "blur(4px)" } : false}
+      animate={
+        shouldReveal
+          ? exiting
+            ? { opacity: 0, x: offset.x, y: offset.y, scale: 0.95, filter: "blur(4px)" }
+            : { opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }
+          : undefined
+      }
+      whileHover={reduceMotion || exiting ? undefined : shellHover}
+      style={{ transformOrigin: "center center" }}
+      transition={
+        shouldReveal
+          ? exiting
+            ? {
+                ...aboutGridBubbleHide,
+                delay: (revealCount - 1 - revealIndex) * 0.08,
+              }
+            : aboutGridBubbleReveal
+          : undefined
+      }
+    >
+      <div className={`${aboutCellClassName} ${glassVariantClass[glassVariant]}`}>
         <span className="about-bento-glass__noise" aria-hidden />
         <span className="about-bento-glass__lens" aria-hidden />
         <span className="about-bento-glass__tint" aria-hidden />
@@ -103,8 +113,8 @@ export function AboutBentoShell({
         <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-between p-6">
           {children}
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -122,6 +132,7 @@ type AboutBentoCardProps = {
   revealCount?: number;
   backdrop?: ReactNode;
   lamp?: "top" | "left-bottom";
+  direction?: "top" | "bottom" | "left" | "right";
 };
 
 export function AboutBentoCard({
@@ -138,6 +149,7 @@ export function AboutBentoCard({
   revealCount = 1,
   backdrop,
   lamp,
+  direction,
 }: AboutBentoCardProps) {
   const lampBackdrop =
     backdrop ??
@@ -155,6 +167,7 @@ export function AboutBentoCard({
       revealIndex={revealIndex}
       revealCount={revealCount}
       backdrop={lampBackdrop}
+      direction={direction}
     >
       <p
         className={`text-xs font-medium uppercase tracking-[0.2em] ${labelClassName}`}
