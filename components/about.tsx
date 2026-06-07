@@ -16,6 +16,7 @@ const bentoCards = [
     body: "We study how teams actually operate, then design tools around those real workflows.",
     className: "sm:col-span-2 lg:col-span-1 lg:row-span-2",
     lamp: "left-bottom" as const,
+    direction: "bottom" as const,
     ...bentoText,
   },
   {
@@ -23,6 +24,7 @@ const bentoCards = [
     title: "Premium custom builds, not forced templates.",
     body: "Every interface, system, and integration is shaped for established companies with serious operations.",
     className: "",
+    direction: "right" as const,
     ...bentoText,
   },
   {
@@ -31,6 +33,7 @@ const bentoCards = [
     body: "DHAKAA partners across locations and works inside your cadence from discovery to long-term evolution.",
     className: "",
     glassVariant: "muted" as const,
+    direction: "right" as const,
     ...bentoText,
   },
 ];

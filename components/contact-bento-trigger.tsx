@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { AboutBentoShell } from "@/components/about-bento-cell";
+import { ContactBentoShell } from "@/components/contact-bento-shell";
 
 const easeOut = [0.23, 1, 0.32, 1] as const;
 
@@ -49,10 +49,7 @@ export function ContactBentoTrigger({
           : ""
       }`}
     >
-      <AboutBentoShell
-        revealOverlay={false}
-        className="group h-full min-h-0! cursor-pointer bg-dhakaa-950 text-dhakaa-0 hover:bg-dhakaa-900 [&>div]:p-5 lg:[&>div]:pb-8"
-      >
+      <ContactBentoShell className="group h-full min-h-0! cursor-pointer bg-dhakaa-950 text-dhakaa-0 hover:bg-dhakaa-900 [&>div]:p-5 lg:[&>div]:pb-8">
         <div
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-[var(--ease-out)] group-hover:opacity-100"
           style={{
@@ -106,7 +103,7 @@ export function ContactBentoTrigger({
             </span>
           </motion.div>
         </motion.div>
-      </AboutBentoShell>
+      </ContactBentoShell>
     </button>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { AboutBentoShell } from "@/components/about-bento-cell";
+import { ContactBentoShell } from "@/components/contact-bento-shell";
 
 const EMAIL = "hello@dhakaa.com";
 const MEETING_HREF = `mailto:${EMAIL}?subject=${encodeURIComponent(
@@ -30,9 +30,8 @@ export function ContactMeetingCell() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <AboutBentoShell
+    <ContactBentoShell
       className="h-full min-h-0 bg-blue-700 text-dhakaa-0 hover:bg-blue-800 [&>div]:p-5 lg:[&>div]:pb-8"
-      revealOverlay={false}
       backdrop={
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
           <div
@@ -86,6 +85,6 @@ export function ContactMeetingCell() {
           </svg>
         </a>
       </motion.div>
-    </AboutBentoShell>
+    </ContactBentoShell>
   );
 }
