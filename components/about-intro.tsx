@@ -14,7 +14,7 @@ export function AboutIntro() {
       variants={reduceMotion ? undefined : aboutIntroRevealContainer}
       initial={reduceMotion ? false : "hidden"}
       animate={reduceMotion ? undefined : "show"}
-      className="relative z-10 bg-dhakaa-50 px-6 pt-6 pb-10 lg:fixed lg:left-0 lg:top-0 lg:w-[38%] lg:px-8 lg:pt-8 lg:pb-8"
+      className="relative z-10 bg-white px-6 pt-6 pb-10 lg:fixed lg:left-0 lg:top-0 lg:w-[38%] lg:px-8 lg:pt-8 lg:pb-8"
     >
       <motion.h1
         variants={reduceMotion ? undefined : aboutIntroRevealItem}

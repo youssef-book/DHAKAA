@@ -21,14 +21,15 @@ export const aboutIntroRevealItem = {
   },
 };
 
-export const aboutGridOverlayReveal = {
-  duration: 0.65,
+/** Bento bubble entrance — scale from each cell's center (Emil: don't start at scale 0). */
+export const aboutGridBubbleReveal = {
+  duration: 0.52,
   delay: 0.22,
   ease: aboutRevealEase,
 };
 
-export const aboutGridOverlayHide = {
-  duration: 0.55,
+export const aboutGridBubbleHide = {
+  duration: 0.45,
   ease: aboutRevealEase,
 };
 

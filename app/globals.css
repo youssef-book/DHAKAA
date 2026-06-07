@@ -36,6 +36,31 @@
   --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   --glass-blur: 20px;
 
+  /* iOS 26.1 tinted Liquid Glass (about bento) */
+  --lg-blur: 36px;
+  --lg-saturate: 185%;
+  --lg-brightness: 1.06;
+  --lg-contrast: 1.02;
+  --lg-fill: rgba(255, 255, 255, 0.56);
+  --lg-fill-hover: rgba(255, 255, 255, 0.68);
+  --lg-border: rgba(228, 228, 231, 0.48);
+  --lg-border-hover: rgba(255, 255, 255, 0.92);
+  --lg-edge-grey: rgba(212, 212, 216, 0.07);
+  --lg-edge-grey-deep: rgba(228, 228, 231, 0.09);
+  --lg-inner-stroke: rgba(228, 228, 231, 0.16);
+  --lg-inner-wash: rgba(228, 228, 231, 0.11);
+  --lg-inner-wash-deep: rgba(212, 212, 216, 0.08);
+  --lg-rim-top: inset 0 1px 0 rgba(255, 255, 255, 0.96);
+  --lg-rim-bottom: inset 0 -0.5px 0 rgba(212, 212, 216, 0.06);
+  --lg-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 28px rgba(0, 0, 0, 0.07),
+    0 24px 48px rgba(0, 0, 0, 0.04);
+  --lg-shadow-hover:
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 12px 32px rgba(0, 0, 0, 0.09),
+    0 28px 56px rgba(0, 0, 0, 0.05);
+
   /* Dark glass */
   --glass-dark-bg: rgba(4, 8, 20, 0.72);
   --glass-dark-border: rgba(151, 184, 244, 0.12);
@@ -197,6 +222,338 @@ body {
   box-shadow: var(--glass-dark-shadow), var(--glass-dark-inset);
   color: var(--dhakaa-0);
 }
+
+.about-bento-glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--lg-fill);
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate))
+    brightness(var(--lg-brightness)) contrast(var(--lg-contrast));
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate))
+    brightness(var(--lg-brightness)) contrast(var(--lg-contrast));
+  border: 0.5px solid var(--lg-border);
+  box-shadow: var(--lg-shadow), var(--lg-rim-top), var(--lg-rim-bottom);
+}
+
+/* specular highlight + top illumination (Liquid Glass lens layer) */
+.about-bento-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse 90% 55% at 50% -8%,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0.18) 28%,
+      transparent 58%
+    ),
+    radial-gradient(
+      circle at 12% 8%,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0.12) 12%,
+      transparent 24%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.04) 18%,
+      transparent 42%
+    );
+  mix-blend-mode: soft-light;
+}
+
+/* inner rim + soft grey edge vignette on all sides */
+.about-bento-glass::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: calc(var(--radius-md) - 2px);
+  pointer-events: none;
+  z-index: 1;
+  border: 0.5px solid var(--lg-inner-stroke);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.5),
+    inset 0 14px 24px -14px var(--lg-edge-grey),
+    inset 0 -14px 24px -14px var(--lg-edge-grey-deep),
+    inset 14px 0 24px -14px var(--lg-edge-grey),
+    inset -14px 0 24px -14px var(--lg-edge-grey);
+}
+
+.about-bento-glass__edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.8;
+  background:
+    linear-gradient(to bottom, var(--lg-edge-grey-deep), transparent 24px),
+    linear-gradient(to top, var(--lg-edge-grey-deep), transparent 24px),
+    linear-gradient(to right, var(--lg-edge-grey), transparent 22px),
+    linear-gradient(to left, var(--lg-edge-grey), transparent 22px);
+}
+
+.about-bento-glass__tint {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse 88% 72% at 50% 52%,
+      var(--lg-inner-wash) 0%,
+      var(--lg-inner-wash-deep) 42%,
+      transparent 72%
+    ),
+    linear-gradient(
+      168deg,
+      rgba(244, 244, 245, 0.06) 0%,
+      rgba(228, 228, 231, 0.04) 100%
+    );
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+
+.about-bento-glass__lens {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+  background:
+    radial-gradient(
+      ellipse 70% 45% at 78% 92%,
+      rgba(255, 255, 255, 0.14) 0%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 55% 35% at 8% 78%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 48%
+    );
+  mix-blend-mode: overlay;
+}
+
+.about-bento-glass__noise {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.028;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.about-bento-glass--blue {
+  background: linear-gradient(
+    168deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(250, 250, 251, 0.54) 38%,
+    rgba(244, 244, 245, 0.5) 100%
+  );
+  border-color: rgba(228, 228, 231, 0.52);
+}
+
+.about-bento-glass--blue .about-bento-glass__tint {
+  background:
+    radial-gradient(
+      ellipse 88% 72% at 50% 52%,
+      rgba(228, 228, 231, 0.1) 0%,
+      rgba(244, 244, 245, 0.05) 45%,
+      transparent 72%
+    ),
+    linear-gradient(
+      168deg,
+      rgba(244, 244, 245, 0.07) 0%,
+      rgba(228, 228, 231, 0.04) 100%
+    );
+}
+
+.about-bento-glass--blue::before {
+  background:
+    radial-gradient(
+      ellipse 90% 55% at 50% -8%,
+      rgba(255, 255, 255, 0.78) 0%,
+      rgba(255, 255, 255, 0.2) 28%,
+      transparent 58%
+    ),
+    radial-gradient(
+      circle at 12% 8%,
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(219, 234, 254, 0.1) 14%,
+      transparent 26%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(219, 234, 254, 0.04) 22%,
+      transparent 44%
+    );
+}
+
+.about-bento-glass--blue::after {
+  border-color: rgba(228, 228, 231, 0.18);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.52),
+    inset 0 14px 24px -14px rgba(212, 212, 216, 0.06),
+    inset 0 -14px 24px -14px rgba(228, 228, 231, 0.08),
+    inset 14px 0 24px -14px rgba(212, 212, 216, 0.05),
+    inset -14px 0 24px -14px rgba(212, 212, 216, 0.05);
+}
+
+.about-bento-glass--blue .about-bento-glass__edge {
+  background:
+    linear-gradient(to bottom, rgba(228, 228, 231, 0.08), transparent 24px),
+    linear-gradient(to top, rgba(228, 228, 231, 0.09), transparent 24px),
+    linear-gradient(to right, rgba(244, 244, 245, 0.07), transparent 22px),
+    linear-gradient(to left, rgba(244, 244, 245, 0.07), transparent 22px);
+}
+
+.about-bento-glass--accent {
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.about-bento-glass--muted {
+  background: linear-gradient(
+    168deg,
+    rgba(244, 244, 245, 0.84) 0%,
+    rgba(228, 228, 231, 0.72) 100%
+  );
+  border-color: rgba(212, 212, 216, 0.52);
+}
+
+.about-bento-glass--muted .about-bento-glass__tint {
+  background:
+    radial-gradient(
+      ellipse 88% 72% at 50% 52%,
+      rgba(212, 212, 216, 0.12) 0%,
+      rgba(228, 228, 231, 0.05) 45%,
+      transparent 72%
+    ),
+    linear-gradient(
+      168deg,
+      rgba(228, 228, 231, 0.08) 0%,
+      rgba(212, 212, 216, 0.04) 100%
+    );
+}
+
+.about-bento-glass--muted::before {
+  background:
+    radial-gradient(
+      ellipse 90% 55% at 50% -8%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(244, 244, 245, 0.14) 28%,
+      transparent 58%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(228, 228, 231, 0.04) 22%,
+      transparent 44%
+    );
+}
+
+.about-bento-glass--muted::after {
+  border-color: rgba(228, 228, 231, 0.14);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.44),
+    inset 0 14px 24px -14px var(--lg-edge-grey),
+    inset 0 -14px 24px -14px var(--lg-edge-grey-deep),
+    inset 14px 0 24px -14px var(--lg-edge-grey),
+    inset -14px 0 24px -14px var(--lg-edge-grey);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .about-bento-glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.94);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .about-bento-glass--blue {
+    background: rgba(252, 252, 254, 0.96);
+  }
+
+  .about-bento-glass--muted {
+    background: rgba(244, 244, 245, 0.96);
+  }
+
+  .about-bento-glass::before,
+  .about-bento-glass__lens,
+  .about-bento-glass__tint {
+    opacity: 0.35;
+  }
+}
+
+
+/* ─── About bento panel ambient ───────────────────────────────────── */
+
+.about-bento-ambient {
+  background:
+    radial-gradient(
+      ellipse 130% 72% at 50% -6%,
+      rgba(219, 234, 254, 0.46) 0%,
+      rgba(191, 219, 254, 0.22) 22%,
+      rgba(219, 234, 254, 0.08) 42%,
+      transparent 68%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(219, 234, 254, 0.14) 0%,
+      rgba(239, 246, 255, 0.05) 18%,
+      rgba(255, 255, 255, 0) 42%
+    );
+}
+
+.about-bento-glass__lamp {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      ellipse 120% 88% at 50% -10%,
+      rgba(219, 234, 254, 0.58) 0%,
+      rgba(191, 219, 254, 0.26) 26%,
+      rgba(219, 234, 254, 0.1) 48%,
+      transparent 74%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(219, 234, 254, 0.22) 0%,
+      rgba(239, 246, 255, 0.08) 32%,
+      transparent 58%
+    );
+}
+
+.about-bento-glass__lamp-left {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      ellipse 105% 82% at 0% 100%,
+      rgba(219, 234, 254, 0.54) 0%,
+      rgba(191, 219, 254, 0.24) 28%,
+      rgba(219, 234, 254, 0.1) 50%,
+      transparent 72%
+    ),
+    linear-gradient(
+      52deg,
+      rgba(219, 234, 254, 0.2) 0%,
+      rgba(239, 246, 255, 0.08) 26%,
+      transparent 52%
+    );
+}
+
 
 /* ─── Hero grid ───────────────────────────────────────────────────── */
 
