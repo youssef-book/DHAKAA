@@ -43,7 +43,10 @@ export function BottomNav() {
   const pathname = usePathname();
   const isLightNavPage = pathname === "/";
   const homeActive = pathname === "/";
-  const isLeftNavPage = pathname === "/about" || pathname === "/contact";
+  const isLeftNavPage =
+    pathname === "/about" ||
+    pathname === "/contact" ||
+    pathname === "/solutions";
   const reduceMotion = useReducedMotion();
   const isLg = useIsLg();
 

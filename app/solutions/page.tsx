@@ -1,4 +1,3 @@
-import { Footer } from "@/components/footer";
 import { Solutions } from "@/components/solutions";
 
 export const metadata = {
@@ -8,11 +7,8 @@ export const metadata = {
 
 export default function SolutionsPage() {
   return (
-    <>
-      <main>
-        <Solutions />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <Solutions />
+    </main>
   );
 }
